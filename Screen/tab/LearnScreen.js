@@ -9,6 +9,7 @@ import {
   TextInput,
   SafeAreaView,
 } from 'react-native';
+import CustomHeader from '../CustomHeader';
 import LinearGradient from 'react-native-linear-gradient';
 
 var data = [
@@ -16,10 +17,10 @@ var data = [
     name: 'General English',
   },
   {
-    name: 'Jackfruit Fried',
+    name: 'Communicative E',
   },
   {
-    name: 'Noodles',
+    name: 'English for Specific purpase',
   },
 ];
 
@@ -48,7 +49,7 @@ export default class LearnScreen extends React.Component {
             <Text style={styles.name}>{item.name}</Text>
           </View>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('DetailScreen')}
+            onPress={() => this.props.navigation.navigate('LearnScreenDetail')}
             style={styles.button}></TouchableOpacity>
         </LinearGradient>
       </SafeAreaView>
@@ -59,13 +60,20 @@ export default class LearnScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.flatList}>
-          <FlatList
-            data={this.state.data}
-            renderItem={this.renderItem}
-            keyExtractor={(item, index) => index.toString()}
-            ItemSeparatorComponent={this.ItemSeparatorComponent}
-            showsVerticalScrollIndicator={false}
+          <CustomHeader
+            title="CultureScreen"
+            ishome={true}
+            navigation={this.props.navigation}
           />
+          <SafeAreaView>
+            <FlatList
+              data={this.state.data}
+              renderItem={this.renderItem}
+              keyExtractor={(item, index) => index.toString()}
+              ItemSeparatorComponent={this.ItemSeparatorComponent}
+              showsVerticalScrollIndicator={false}
+            />
+          </SafeAreaView>
         </View>
       </View>
     );

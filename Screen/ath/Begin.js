@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   SafeAreaView,
 } from 'react-native';
+import {IMAGE} from '../../src/image/image';
 
 var {height, width} = Dimensions.get('window');
 export default class THEME extends Component {
@@ -31,12 +32,12 @@ export default class THEME extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate('LearnScreen')}>
-          <SafeAreaView>
+        <SafeAreaView>
+          <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('Login')}>
             <Animated.Image
               style={{...styles.image, opacity: this.state.logo}}
-              source={require('../asset/COMPUS-removebg-preview.png')}
+              source={IMAGE.ICON_COMPUS}
             />
             <Animated.View
               style={{
@@ -50,8 +51,8 @@ export default class THEME extends Component {
               }}>
               <Text style={styles.text}>WELLCOM</Text>
             </Animated.View>
-          </SafeAreaView>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </SafeAreaView>
       </View>
     );
   }
