@@ -9,7 +9,7 @@ import TravelScreen from '../tab/TravelScreen';
 import CultureScreen from '../tab/CultureScreen';
 import EntertaiScreen from '../tab/EntertaiScreen';
 import MessScreen from '../tab/MessScreen';
-import {IMAGE} from '../../src/image/image';
+import {IMAGE} from '../image/image';
 
 const Tab = createBottomTabNavigator();
 export default class Home extends Component {

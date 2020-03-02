@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Text, View, SafeAreaView, Image, TouchableOpacity} from 'react-native';
-import {IMAGE} from '../../src/image/image';
+import {IMAGE} from '../image/image';
 
 export default class CustomHeader extends Component {
   render() {

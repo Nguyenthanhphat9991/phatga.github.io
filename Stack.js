@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import * as React from 'react';
 
-import {Login, Begin, Home, Register} from './Screen/ath/index';
+import {Login, Begin, Home, Register} from './src/Screen/ath/index';
 import {
   CultureScreen,
   EntertaiScreen,
@@ -14,8 +14,8 @@ import {
   CultureScreenDetail,
   EntertaiScreenDetail,
   MessScreenDetail,
-} from './Screen/tab/index';
-
+} from './src/Screen/tab/index';
+import {CE, GE, EFSP} from './src/Screen/LearnScreen/index';
 const Header = () => ({
   headerShown: false,
 });
@@ -119,6 +119,27 @@ export default function App() {
           name="MessScreenDetail"
           component={({navigation}) => {
             return <MessScreenDetail navigation={navigation} />;
+          }}
+          options={Header}
+        />
+        <Stack.Screen
+          name="CE"
+          component={({navigation}) => {
+            return <CE navigation={navigation} />;
+          }}
+          options={Header}
+        />
+        <Stack.Screen
+          name="GE"
+          component={({navigation}) => {
+            return <GE navigation={navigation} />;
+          }}
+          options={Header}
+        />
+        <Stack.Screen
+          name="EFSP"
+          component={({navigation}) => {
+            return <EFSP navigation={navigation} />;
           }}
           options={Header}
         />

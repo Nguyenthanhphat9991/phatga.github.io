@@ -34,6 +34,23 @@ export default class LearnScreen extends React.Component {
     };
   }
 
+  // Onpress = { () => this.conga("id muon so sanh")}
+
+  // cConga = (idSoSanh) =>{
+  //   If ( id.toLower() === idSoSanh.toLower()){
+  //   This.props.navigation.navigate("xxxxxxx')}}
+
+  check = ({item}) => {
+    if (item.name === 'General English') {
+      // This.props.navigation.navigate('LearnScreenDetail')}}
+      this.props.navigation.navigate('GE');
+    } else if (item.name === 'Communicative E') {
+      this.props.navigation.navigate('CE');
+    } else {
+      this.props.navigation.navigate('EFSP');
+    }
+  };
+
   renderItem = ({item}) => {
     return (
       <SafeAreaView>
@@ -49,7 +66,7 @@ export default class LearnScreen extends React.Component {
             <Text style={styles.name}>{item.name}</Text>
           </View>
           <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('LearnScreenDetail')}
+            onPress={() => this.check({item})}
             style={styles.button}></TouchableOpacity>
         </LinearGradient>
       </SafeAreaView>

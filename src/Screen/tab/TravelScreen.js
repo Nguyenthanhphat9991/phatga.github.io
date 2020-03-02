@@ -11,9 +11,9 @@ import {
   DefaultTabBar,
   ScrollableTabBar,
 } from '@valdio/react-native-scrollable-tabview';
-import Visa from './TravelScreen/Visa';
-import Translation from './TravelScreen/Translation';
-import Travel_Tips from './TravelScreen/Travel_Tips';
+import Visa from '../TravelScreen/Visa';
+import Translation from '../TravelScreen/Translation';
+import Travel_Tips from '../TravelScreen/Travel_Tips';
 
 import CustomHeader from '../CustomHeader';
 

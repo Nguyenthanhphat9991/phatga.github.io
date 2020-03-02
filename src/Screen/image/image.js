@@ -11,5 +11,7 @@ const IMAGE = {
   ICON_MESS: require('./mess.png'),
   ICON_MESS_BLACK: require('./mess_black.png'),
   ICON_COMPUS: require('./COMPUS-removebg-preview.png'),
+  ICON_NEXT: require('./next.png'),
+  ICON_USER: require('./user.png'),
 };
 export {IMAGE};
