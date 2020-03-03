@@ -48,10 +48,10 @@ export default class Home extends Component {
           inactiveTintColor: 'gray',
         }}>
         <Tab.Screen name="Lobby" component={MessScreen} />
-        <Tab.Screen name="Learn" component={LearnScreen} />
         <Tab.Screen name="Travel" component={TravelScreen} />
         <Tab.Screen name="Culture" component={CultureScreen} />
         <Tab.Screen name="Entertai" component={EntertaiScreen} />
+        <Tab.Screen name="Learn" component={LearnScreen} />
       </Tab.Navigator>
     );
   }
