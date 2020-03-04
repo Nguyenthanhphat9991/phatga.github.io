@@ -13,6 +13,8 @@ import {
   Alert,
   Button,
 } from 'react-native';
+import * as firebase from 'firebase';
+
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
@@ -25,8 +27,11 @@ export class Login extends Component {
       check_textInputChange: false,
       password: '',
       secureTextEntry: true,
+      email: '',
+      errorMessage: null,
     };
   }
+
   textInputChange(email) {
     if (email.length !== 0) {
       this.setState({
@@ -43,13 +48,31 @@ export class Login extends Component {
       secureTextEntry: !this.state.secureTextEntry,
     });
   }
+
+  checkLogin = () => {
+    const {email, password} = this.state;
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => this.props.navigation.navigate('Home'))
+      .catch(error => {
+        this.setState({errorMessage: error.message});
+      });
+  };
+
   render() {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.text_head}>Wellcome Compus!</Text>
         </View>
+
         <Animatable.View animation="bounceIn" style={styles.footer}>
+          <View style={styles.errorMessage}>
+            {this.state.errorMessage && (
+              <Text style={styles.error}>{this.state.errorMessage}</Text>
+            )}
+          </View>
           <Text style={styles.text_footer}>E-MAIL</Text>
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
@@ -57,7 +80,8 @@ export class Login extends Component {
               placeholder="You email..."
               style={styles.textinput}
               autoCapitalize="none"
-              onChangeText={text => this.textInputChange(text)}
+              onChangeText={email => this.setState({email})}
+              value={this.state.email}
             />
             {this.state.check_textInputChange ? (
               <Animatable.View animation="bounceInUp">
@@ -75,8 +99,8 @@ export class Login extends Component {
                 maxLength={16}
                 secureTextEntry={true}
                 style={styles.textinput}
+                onChangeText={password => this.setState({password})}
                 value={this.state.password}
-                onChangeText={text => this.setState({password: text})}
               />
             ) : (
               <TextInput
@@ -97,9 +121,7 @@ export class Login extends Component {
             </TouchableOpacity>
           </View>
           {/* <Text style={{color: '#009bd1'}}>Forgot password?</Text> */}
-          <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('Home')}
-            style={styles.button}>
+          <TouchableOpacity onPress={this.checkLogin} style={styles.button}>
             <LinearGradient
               colors={['#009bd1', '#05375a']}
               start={{x: 0, y: 1}}
@@ -196,6 +218,17 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: 'bold',
     color: '#4dc2f8',
+  },
+  errorMessage: {
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30,
+  },
+  error: {
+    color: '#E9446A',
+    fontSize: 15,
+    textAlign: 'center',
   },
 });
 export default Login;

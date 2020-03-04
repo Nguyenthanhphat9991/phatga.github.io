@@ -15,10 +15,25 @@ import {
   EntertaiScreenDetail,
   MessScreenDetail,
 } from './src/Screen/tab/index';
+import * as firebase from 'firebase';
+
 import {CE, GE, EFSP} from './src/Screen/LearnScreen/index';
 const Header = () => ({
   headerShown: false,
 });
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyBx62n-do2VU_YO-GPcy2LSVTVuXSd0VAI',
+  authDomain: 'cptest-c6c7d.firebaseapp.com',
+  databaseURL: 'https://cptest-c6c7d.firebaseio.com',
+  projectId: 'cptest-c6c7d',
+  storageBucket: 'cptest-c6c7d.appspot.com',
+  messagingSenderId: '969621782459',
+  appId: '1:969621782459:web:0ad70c361a8c9974e30e9e',
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
 const Stack = createStackNavigator();
 export default function App() {
   return (

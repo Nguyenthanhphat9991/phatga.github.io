@@ -18,18 +18,22 @@ import Feather from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import CustomHeader from '../CustomHeader';
+import * as firebase from 'firebase';
 
-export class Login extends Component {
+export class Register extends Component {
   constructor(props) {
     super(props);
     this.state = {
       check_textInputChange: false,
+      email: '',
       password: '',
       secureTextEntry: true,
       password_confirm: '',
       secureTextEntry_confirm: true,
+      errorMessage: null,
     };
   }
+
   textInputChange(email) {
     if (email.length !== 0) {
       this.setState({
@@ -52,11 +56,17 @@ export class Login extends Component {
     });
   }
 
-  // Onpress = { () => this.conga("id muon so sanh")}
-
-  // cConga = (idSoSanh) =>{
-  //   If ( id.toLower() === idSoSanh.toLower()){
-  //   This.props.navigation.navigate("xxxxxxx')}}
+  checkRegister = () => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(currentUser => {
+        return currentUser.user.updateProfile({
+          displayName: this.state.email,
+        });
+      })
+      .catch(error => this.setState({errorMessage: error.message}));
+  };
 
   check = ({item}) => {
     if (this.state.password === this.state.password_confirm) {
@@ -70,11 +80,15 @@ export class Login extends Component {
     return (
       <View style={styles.container}>
         <CustomHeader ishome={true} navigation={this.props.navigation} />
-
         <View style={styles.header}>
           <Text style={styles.text_head}>Wellcome Compus!</Text>
         </View>
         <Animatable.View animation="bounceIn" style={styles.footer}>
+          <View style={styles.errorMessage}>
+            {this.state.errorMessage && (
+              <Text style={styles.error}>{this.state.errorMessage}</Text>
+            )}
+          </View>
           <Text style={styles.text_footer}>E-MAIL</Text>
           <View style={styles.action}>
             <FontAwesome name="user-o" color="#05375a" size={20} />
@@ -82,7 +96,8 @@ export class Login extends Component {
               placeholder="You email..."
               style={styles.textinput}
               autoCapitalize="none"
-              onChangeText={text => this.textInputChange(text)}
+              onChangeText={email => this.setState({email: email})}
+              value={this.state.email}
             />
             {this.state.check_textInputChange ? (
               <Animatable.View animation="bounceIn">
@@ -97,31 +112,34 @@ export class Login extends Component {
               <TextInput
                 autoCapitalize="none"
                 placeholder="You password..."
-                maxLength={16}
                 secureTextEntry={true}
+                blurOnSubmit={false}
+                onSubmitEditing={() => Keyboard.dismiss()}
                 style={styles.textinput}
                 value={this.state.password}
-                onChangeText={text => this.setState({password: text})}
+                onChangeText={password => this.setState({password: password})}
               />
             ) : (
               <TextInput
                 autoCapitalize="none"
+                blurOnSubmit={false}
+                onSubmitEditing={() => Keyboard.dismiss()}
                 placeholder="You password..."
                 maxLength={16}
                 style={styles.textinput}
                 value={this.state.password}
-                onChangeText={text => this.setState({password: text})}
+                onChangeText={password => this.setState({password: password})}
               />
             )}
             <TouchableOpacity onPress={() => this.secureTextEntry()}>
               {this.state.secureTextEntry ? (
-                <Feather name="eye-off" color="gray" size={20} />
-              ) : (
                 <Feather name="eye" color="gray" size={20} />
+              ) : (
+                <Feather name="eye-off" color="gray" size={20} />
               )}
             </TouchableOpacity>
           </View>
-          <Text style={styles.text_footer}>Confirm Password</Text>
+          {/* <Text style={styles.text_footer}>Confirm Password</Text>
           <View style={styles.action}>
             <Feather name="lock" color="#05375a" size={20} />
             {this.state.secureTextEntry_confirm ? (
@@ -151,10 +169,8 @@ export class Login extends Component {
                 <Feather name="eye" color="gray" size={20} />
               )}
             </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            onPress={() => this.check('item')}
-            style={styles.button}>
+          </View> */}
+          <TouchableOpacity onPress={this.checkRegister} style={styles.button}>
             <LinearGradient
               colors={['#009bd1', '#05375a']}
               start={{x: 0, y: 1}}
@@ -172,7 +188,6 @@ export class Login extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     backgroundColor: '#05375a',
   },
   header: {
@@ -247,5 +262,18 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#4dc2f8',
   },
+  errorMessage: {
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 30,
+  },
+  error: {
+    color: '#E9446A',
+    fontSize: 15,
+    textAlign: 'center',
+  },
 });
-export default Login;
+export default Register;
+
+console.disableYellowBox = true;
